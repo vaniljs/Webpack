@@ -15,15 +15,16 @@ module.exports = {
                 use: [
                     'style-loader',
                     MiniCssExtractPlugin.loader,
-                    { loader: 'css-loader', options: { sourceMap: true}},
-                    { loader: 'postcss-loader', options: { sourceMap: true, config: {path: 'postcss.config.js'}}},
+                    {loader: 'css-loader', options: {sourceMap: true}},
+                    {loader: 'postcss-loader', options: {sourceMap: true, config: {path: 'postcss.config.js'}}},
                 ],
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
-                use: [
-                    'file-loader',
-                ],
+                test: /\.(png|jpe?g|gif)$/i,
+                loader: 'file-loader',
+                options: {
+                    outputPath: 'images',
+                },
             },
         ],
     },

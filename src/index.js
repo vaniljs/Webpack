@@ -1,5 +1,5 @@
 import './style.css';
-import Icon from './icon.jpg';
+import Icon from './img/icon.jpg';
 
 function component() {
     const element = document.createElement('div');
