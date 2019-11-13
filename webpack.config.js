@@ -4,12 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
+    //mode: 'development',
+    //devtool: 'inline-source-map',
     entry: {
         index: './src/index.js',
         print: './src/print.js',
     },
-    //devtool: 'inline-source-map',
     devServer: {
         contentBase: './dist',
     },
@@ -26,12 +26,17 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
-                        options: { sourceMap: false }
+                        options: {sourceMap: true}
                     }, {
                         loader: 'postcss-loader',
-                        options: { sourceMap: false }
+                        options: {sourceMap: true}
                     }
                 ]
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: '/node_modules/'
             },
         ],
     },
