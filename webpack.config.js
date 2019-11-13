@@ -1,36 +1,26 @@
 const path = require('path');
-const postcssPresetEnv = require('postcss-preset-env');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    mode: 'development',
+    entry: {
+        index: './src/index.js',
+        print: './src/print.js',
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist',
+    },
     output: {
-        filename: 'main.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
     },
-    module: {
-        rules: [
-            {
-                test: /\.css$/,
-                use: [
-                    'style-loader',
-                    MiniCssExtractPlugin.loader,
-                    {loader: 'css-loader', options: {sourceMap: true}},
-                    {loader: 'postcss-loader', options: {sourceMap: true, config: {path: 'postcss.config.js'}}},
-                ],
-            },
-            {
-                test: /\.(png|jpe?g|gif)$/i,
-                loader: 'file-loader',
-                options: {
-                    outputPath: 'images',
-                },
-            },
-        ],
-    },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: '[name].css'
-        })
-    ]
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+            filename: "index.html"
+        }),
+    ],
 };

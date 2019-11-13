@@ -1,17 +1,17 @@
-import './style.css';
-import Icon from './img/icon.jpg';
+import printMe from './print.js';
 
 function component() {
     const element = document.createElement('div');
-    element.classList.add('hello');
-    element.innerHTML = 'Test element';
+    const btn = document.createElement('button');
 
-    const myIcon = new Image();
-    myIcon.src = Icon;
-    element.appendChild(myIcon);
+    element.innerHTML = 'Hello', 'webpack';
+
+    btn.innerHTML = 'Click me and check the console!';
+    btn.onclick = printMe;
+
+    element.appendChild(btn);
 
     return element;
 }
-
 
 document.body.appendChild(component());
