@@ -2,13 +2,14 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     //mode: 'development',
+    mode: 'production',
     //devtool: 'inline-source-map',
     entry: {
         index: './src/index.js',
-        print: './src/print.js',
     },
     devServer: {
         contentBase: './dist',
@@ -20,7 +21,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.s[ac]ss$/i,
                 use: [
                     'style-loader',
                     MiniCssExtractPlugin.loader,
@@ -30,6 +31,8 @@ module.exports = {
                     }, {
                         loader: 'postcss-loader',
                         options: {sourceMap: true}
+                    }, {
+                        loader: 'sass-loader',
                     }
                 ]
             },

@@ -7,13 +7,10 @@
     "start": "webpack-dev-server --open",
     "build": "webpack"
   },
-  "browserslist": [
-    "> 1%",
-    "last 3 version"
-  ],
   "devDependencies": {
-    "@babel/core": "^7.7.2",
-    "@babel/preset-env": "^7.7.1",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
     "autoprefixer": "^9.7.1",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
@@ -22,12 +19,19 @@
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.13.1",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
+    "react": "^16.12.0",
+    "react-hot-loader": "^4.12.19",
+    "sass-loader": "^8.0.2",
     "style-loader": "^1.0.0",
-    "webpack": "^4.41.2",
+    "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"
+  },
+  "dependencies": {
+    "react-dom": "^16.12.0"
   }
 }
