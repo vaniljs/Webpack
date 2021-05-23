@@ -1,6 +1,16 @@
+require('file-loader?name=[name].[ext]!./index.html')
+
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "./style.sass";
-import html from './index.html';
+import { App } from './app/app';
+import './app/app.sass';
+//import './images/react.png';
 
-ReactDOM.render(<div>Тест</div>, document.getElementById('app'));
+
+
+
+const appElement = document.getElementById('app');
+
+
+ReactDOM.render(<App />, appElement)

@@ -1,59 +1,53 @@
 const path = require('path');
+const TerserPlugin = require("terser-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const webpack = require('webpack');
+
+
 
 module.exports = {
-    //mode: 'development',
-    //mode: 'production',
-    //devtool: 'inline-source-map',
-    entry: {
-        index: './src/index.js',
+    output: {
+        filename: 'script.js',
+        path: path.join(__dirname, '/dist')
     },
     devServer: {
-        contentBase: './dist',
-    },
-    output: {
-        filename: '[name].js',
-        path: path.resolve(__dirname, 'dist'),
+        watchContentBase: true,
+        open: true,
     },
     module: {
         rules: [
             {
-                test: /\.s[ac]ss$/i,
-                use: [
-                    'style-loader',
-                    MiniCssExtractPlugin.loader,
-                    {
-                        loader: 'css-loader',
-                        options: {sourceMap: true}
-                    }, {
-                        loader: 'postcss-loader',
-                        options: {sourceMap: true}
-                    }, {
-                        loader: 'sass-loader',
-                    }
-                ]
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader'
+                }
             },
             {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: '/node_modules/'
+                test: /\.s[ac]ss$/i,
+                use: [
+                    //'style-loader',
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader'
+                    
+                ]
             },
             {
                 test: /\.(gif|png|jpe?g|svg)$/i,
                 use: [{
                     loader: 'file-loader',
                     options: {
-                        // Копирование картинок с сохранением дерева каталогов
+                        // Относительные пути картинок
                         name: f => {
                             let dirNameInsideAssets = path.relative(path.join(__dirname, 'src'), path.dirname(f));
                             return `${dirNameInsideAssets}/[name].[ext]`;
-                        }
-                    }
+                        },
+                        esModule: false,
+                      }
                 },
-                    {
+                {
                     // сжатие картинок
                     loader: 'image-webpack-loader',
                     options: {
@@ -75,29 +69,26 @@ module.exports = {
                             quality: 75
                         },
                     }
+                }
+            ]
+            }
+        ]
+    },
+    optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin({
+            terserOptions: {
+                format: {
+                    comments: false,
                 },
-                ],
             },
-            {
-                // копирование картинок из тегов img в html файлах
-                test: /\.html$/i,
-                use: [
-                    'file-loader?name=[name].[ext]',
-                    "extract-loader",
-                    'html-loader'
-                ],
-            },
-        ],
+            extractComments: false,
+        })],
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: './src/index.html',
-            //filename: "index.html", // Создает пустышку index.html и предупреждает о перезаписи. На StackOverflow советовали использовать [name].[ext]
-            filename: "[name].html", // Создает пустышку 0.html а в index.html на второй картинке меняет слеш / -> \
-        }),
         new MiniCssExtractPlugin({
-            filename: '[name].css',
+            filename: 'style.css',
         }),
     ],
-};
+}
