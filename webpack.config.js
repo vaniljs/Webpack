@@ -11,6 +11,7 @@ module.exports = {
         path: path.join(__dirname, '/dist')
     },
     devServer: {
+        contentBase: [path.resolve(__dirname, "dist"), path.resolve(__dirname, "dist")],
         watchContentBase: true,
         open: true,
     },
@@ -71,6 +72,13 @@ module.exports = {
                     }
                 }
             ]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                loader: 'file-loader',
+                options: {
+                    name: './fonts/[name].[ext]'
+                }
             }
         ]
     },

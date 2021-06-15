@@ -38,7 +38,8 @@
     "autoprefixer": "^10.2.5",
     "cssnano": "^5.0.4",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "webpack-react": "file:"
   },
   "repository": {
     "type": "git",
