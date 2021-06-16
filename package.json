@@ -35,6 +35,8 @@
   },
   "dependencies": {
     "-": "^0.0.1",
+    "@ant-design/icons": "^4.7.0",
+    "antd": "^4.19.1",
     "autoprefixer": "^10.2.5",
     "cssnano": "^5.0.4",
     "react": "^17.0.2",
